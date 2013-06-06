@@ -22,6 +22,9 @@ Bundle 'vim-scripts/taglist.vim'
 Bundle 'vim-scripts/AutoClose'
 Bundle 'vim-scripts/Align'
 Bundle 'shawncplus/phpcomplete.vim'
+Bundle 'vim-scripts/yaml.vim'
+Bundle 'vim-scripts/python.vim--Vasiliev'
+Bundle 'vim-scripts/pythoncomplete'
 
 nnoremap <Leader>bi :BundleInstall<CR>
 nnoremap <Leader>bu :BundleInstall!<CR>
@@ -35,9 +38,6 @@ set number
 colorscheme wombat256mod
 set encoding=utf-8
 set t_co=256
-
-"AUTOCMOMMANDE
-au FileType php set omnifunc=phpcomplete#CompletePHP
 
 "AUTOSAVE
 let g:auto_save = 1
@@ -129,7 +129,16 @@ au BufReadPost * if line("'\"") >0 |if line("'\"") <= line("$")|exe("norm '\"")|
 
 "PHP
 "Mettre condition pour lancer les makepgr selon l'extension"
-
+source ~/.vim/plugin/php.vim
+au FileType php call php#PhpConfigPerso()
 
 "PYTHON
+source ~/.vim/plugin/python.vim
+au FileType python call python#ConfigPython()
+
+
+"YAML
+source ~/.vim/plugin/yaml.vim
+au FileType yaml call yaml#ConfigYaml()
+au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/bundle/yaml.vim/colors/yaml.vim
 
