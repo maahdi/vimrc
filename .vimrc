@@ -25,6 +25,7 @@ Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'vim-scripts/yaml.vim'
 Bundle 'vim-scripts/python.vim--Vasiliev'
 Bundle 'vim-scripts/pythoncomplete'
+Bundle 'majutsushi/tagbar'
 
 nnoremap <Leader>bi :BundleInstall<CR>
 nnoremap <Leader>bu :BundleInstall!<CR>
@@ -43,26 +44,27 @@ set t_co=256
 let g:auto_save = 1
 
 "NERDTREE
-nnoremap <silent> <F8> :NERDTree /srv/http/workspace/<CR>
+nnoremap <silent> <F9> :NERDTree /srv/http/workspace<CR>
 let NERDTreeChDirMode = 2  "cd dans workspace
 
 "TAGLIST
-nnoremap <silent> <F9> :TlistToggle<CR>
-let Tlist_Exit_OnlyWindow          = 1                " Fermeture si unique onglet
-let Tlist_Process_File_Away        = 1                " Activation permanente pour la barre de status
-let Tlist_Use_Right_Window         = 1
-let Tlist_Gain_Focus_On_ToggleOpen = 0
-let generate_tags                  = 1
-let Tlist_Ctags_Cmd                = '/usr/bin/ctags'
+nnoremap <silent> <F8> :TagbarToggle<CR>
+"let Tlist_Exit_OnlyWindow          = 1                " Fermeture si unique onglet
+"let Tlist_Process_File_Away        = 1                " Activation permanente pour la barre de status
+"let Tlist_Use_Right_Window         = 1
+"let Tlist_Gain_Focus_On_ToggleOpen = 0
+"let generate_tags                  = 1
+"let Tlist_Ctags_Cmd                = '/usr/bin/ctags'
 
 "AUTOCLOSE
-command! AutoCloseOn :let s:running = 1
+"command! AutoCloseOn :let s:running = 1
 
 """""""""""""WORD_COMPLETE
 """""""""""""source ~/.vim/bundle/word_complete.vim/plugin/word_complete.vim
 """""""""""""autocmd BufEnter * call DoWordComplete() 
 
 "AUTRES
+set ttymouse=urxvt
 set autoread                        " Set to auto read when a file is changed from the outside
 nmap <Leader>w :w!<CR>              " Fast saving
 cab wr  w !sudo tee % > /dev/null   " <F1> sudo saves the file
@@ -142,3 +144,6 @@ source ~/.vim/plugin/yaml.vim
 au FileType yaml call yaml#ConfigYaml()
 au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/bundle/yaml.vim/colors/yaml.vim
 
+"C
+source ~/.vim/plugin/c.vim
+au Filetype h,c call c#ConfigC()
