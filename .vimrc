@@ -26,8 +26,8 @@ Bundle 'vim-scripts/yaml.vim'
 Bundle 'vim-scripts/python.vim--Vasiliev'
 Bundle 'vim-scripts/pythoncomplete'
 Bundle 'majutsushi/tagbar'
-Bundle 'othree/html5-syntax.vim'
-Bundle 'lepture/vim-css'
+Bundle 'scrooloose/syntastic'
+Bundle 'Lokaltog/powerline'
 
 nnoremap <Leader>bi :BundleInstall<CR>
 nnoremap <Leader>bu :BundleInstall!<CR>
@@ -132,7 +132,10 @@ nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 
 
 "BARRE DE STATUS
-set statusline=%t%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [FENC=%{&fileencoding}]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]\ [TAG=%{Tlist_Get_Tagname_By_Line()}]
+"set statusline=%t%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [FENC=%{&fileencoding}]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]\ [TAG=%{Tlist_Get_Tagname_By_Line()}]
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 " Revenir à l'ancienne position
 au BufReadPost * if line("'\"") >0 |if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm$"|endif|endif
@@ -146,11 +149,21 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
+"Powerline
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
+"Syntastic
+
+let g:syntastic_enable_signs=1
+let g:syntastic_mode_map = { 'mode': 'active',
+            \'active_filetypes': ['php'],
+            \'passive_filetypes': [''] }
+let g:syntastic_check_on_wq=0
 
 "PHP
 "Mettre condition pour lancer les makepgr selon l'extension"
 source ~/.vim/plugin/php.vim
-au FileType php,html call php#PhpConfigPerso()
+au FileType php call php#PhpConfigPerso()
 
 "PYTHON
 source ~/.vim/plugin/python.vim

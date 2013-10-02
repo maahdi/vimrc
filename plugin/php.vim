@@ -2,6 +2,17 @@ function! php#PhpConfigPerso()
     set omnifunc=phpcomplete#CompletePHP
     set tabstop=4
     set shiftwidth=4
+    let g:syntastic_php_checkers=['php','phpcs','phpmd']
+    "Permet de faire tous les checkers et display après
+    let g:syntastic_aggregate_errors=1        " idem mode insertion"
+    let g:syntastic_check_on_open=1
+    autocmd BufWrite *.php execute ":SyntasticCheck"
+    autocmd InsertLeave *.php execute ":SyntasticCheck"
+    "Ouvre automatiquement la liste des erreurs et la ferme si pas d'erreur
+    let g:syntastic_auto_loc_list=1
+    "Actualise la fenetre avec la liste des erreurs
+    let g:syntastic_always_populate_loc_list=1
+
 endfunction 
 
 function! InsertCloseTag()
