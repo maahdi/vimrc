@@ -18,7 +18,6 @@ Bundle 'gmarik/vundle'
 Bundle 'michalbachowski/vim-wombat256mod'
 Bundle 'vim-scripts/vim-auto-save'
 Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/taglist.vim'
 Bundle 'vim-scripts/AutoClose'
 Bundle 'vim-scripts/Align'
 Bundle 'shawncplus/phpcomplete.vim'
@@ -28,6 +27,10 @@ Bundle 'vim-scripts/pythoncomplete'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/powerline'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'msanders/snipmate.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'kien/ctrlp.vim'
 
 nnoremap <Leader>bi :BundleInstall<CR>
 nnoremap <Leader>bu :BundleInstall!<CR>
@@ -72,8 +75,8 @@ nnoremap <silent> <F8> :TagbarToggle<CR>
 "set ttymouse=urxvt
 set autoread                        " Set to auto read when a file is changed from the outside
 nmap <Leader>w :w!<CR>              " Fast saving
-cab wr  w !sudo tee % > /dev/null   " <F1> sudo saves the file
-map <F1> <ESC>:wr<CR> 
+" <F1> sudo saves the file
+map <F1> <ESC>:w !sudo tee % > /dev/null<CR> 
 set so=7                            " Set 7 lines to the cursor when moving vertically using j/k
 set wildmenu                        " Turn on wildmenu
 set backspace=eol,start,indent      " Configure backspace so it acts as it should act
@@ -124,7 +127,8 @@ map <C-Left> :tabp<CR>
 imap <C-Left> <C-O>:tabp<CR>
 map <F3> <ESC>:set nu!<CR>           " Nouvelle page vide
 map <F2> <ESC>:w<CR>                 " <F2> save file
-
+"Ctrlp pour voir dans les tags
+nnoremap <leader>. :CtrlPTag<CR>
 
 "Agrandit en hauteur les fenetres dans les écrans splitter
 nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
@@ -153,12 +157,17 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 "Syntastic
-
+map <F12> <Esc>:SyntasticCheck<CR>
+map <F11> <Esc>:SyntasticReset<CR>:lcl<CR>
 let g:syntastic_enable_signs=1
-let g:syntastic_mode_map = { 'mode': 'active',
-            \'active_filetypes': ['php'],
-            \'passive_filetypes': [''] }
-let g:syntastic_check_on_wq=0
+nnoremap <leader>e :Errors<CR>
+nnoremap <leader>f :lcl<CR>
+"let g:syntastic_mode_map = { 'mode': 'active',
+            "\'active_filetypes': ['php'],
+            "\'passive_filetypes': [''] }
+"Fichier tags yomaah
+source ~/.vim/plugin/mytags/mytags.vim
+"set tags+=~/.vim/plugin/mytags/yomaah/yomaah.tags
 
 "PHP
 "Mettre condition pour lancer les makepgr selon l'extension"
