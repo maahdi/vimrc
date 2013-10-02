@@ -26,6 +26,8 @@ Bundle 'vim-scripts/yaml.vim'
 Bundle 'vim-scripts/python.vim--Vasiliev'
 Bundle 'vim-scripts/pythoncomplete'
 Bundle 'majutsushi/tagbar'
+Bundle 'othree/html5-syntax.vim'
+Bundle 'lepture/vim-css'
 
 nnoremap <Leader>bi :BundleInstall<CR>
 nnoremap <Leader>bu :BundleInstall!<CR>
@@ -39,6 +41,9 @@ set number
 colorscheme wombat256mod
 set encoding=utf-8
 set t_co=256
+set enc=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
 
 "AUTOSAVE
 let g:auto_save = 1
@@ -64,7 +69,7 @@ nnoremap <silent> <F8> :TagbarToggle<CR>
 """""""""""""autocmd BufEnter * call DoWordComplete() 
 
 "AUTRES
-set ttymouse=urxvt
+"set ttymouse=urxvt
 set autoread                        " Set to auto read when a file is changed from the outside
 nmap <Leader>w :w!<CR>              " Fast saving
 cab wr  w !sudo tee % > /dev/null   " <F1> sudo saves the file
@@ -96,6 +101,11 @@ set noswapfile                      " desactive les creation de .swp
 set ttyfast
 set nospell
 set showcmd
+set fileformats=unix,mac,dos        "gestion des retours charoits selon le type du fichier
+setglobal fileencoding=utf-8
+set bomb
+set termencoding=utf-8
+
 
 "MAPPING
 nmap <silent> <C-k> :wincmd k<CR>    " Move between windows
@@ -127,12 +137,20 @@ set statusline=%t%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [FENC=%{&fileencoding}]\ 
 " Revenir à l'ancienne position
 au BufReadPost * if line("'\"") >0 |if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm$"|endif|endif
 
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 "PHP
 "Mettre condition pour lancer les makepgr selon l'extension"
 source ~/.vim/plugin/php.vim
-au FileType php call php#PhpConfigPerso()
+au FileType php,html call php#PhpConfigPerso()
 
 "PYTHON
 source ~/.vim/plugin/python.vim
