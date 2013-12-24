@@ -31,6 +31,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'msanders/snipmate.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
+Bundle 'qbbr/vim-twig'
 
 nnoremap <Leader>bi :BundleInstall<CR>
 nnoremap <Leader>bu :BundleInstall!<CR>
@@ -166,7 +167,7 @@ nnoremap <leader>f :lcl<CR>
             "\'active_filetypes': ['php'],
             "\'passive_filetypes': [''] }
 "Fichier tags yomaah
-source ~/.vim/plugin/mytags/mytags.vim
+"source ~/.vim/plugin/mytags/mytags.vim
 "set tags+=~/.vim/plugin/mytags/yomaah/yomaah.tags
 
 "PHP
@@ -187,3 +188,6 @@ au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/bundle/yaml.vim/colors/yaml.vim
 "C
 source ~/.vim/plugin/c.vim
 au Filetype h,c call c#ConfigC()
+
+"TWIG
+"au BufRead,BufNewFile *.twig setfiletype django
